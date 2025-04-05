@@ -5,32 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
     <script>
-        // Wait until the page is fully loaded
         window.onload = function() {
             // Get the "url" parameter from the query string
             const urlParams = new URLSearchParams(window.location.search);
             const targetUrl = urlParams.get('url');  // Extract the URL parameter
 
             if (targetUrl) {
-                // Ensure the URL is decoded properly
+                // Decode the URL to ensure it's a proper link
                 const decodedUrl = decodeURIComponent(targetUrl);
-                
-                // Force open the URL in an external browser by creating an invisible <a> link
+
+                // Create a new invisible <a> tag
                 const link = document.createElement('a');
                 link.href = decodedUrl;
-                link.target = "_blank";  // Opens in a new browser tab
+                link.target = "_blank";  // Force open in a new tab
 
-                // Append the link to the body and simulate a click
+                // Append the link to the body, simulate click and remove it
                 document.body.appendChild(link);
-                link.click();  // Simulate a click event to open the URL in a new tab
-                
-                // Optionally, remove the link from the DOM after redirection
+                link.click();  // Simulate a click event to open in new tab
+
+                // Optionally, remove the link after some time
                 setTimeout(() => {
                     document.body.removeChild(link);
-                }, 500); // Allow some time before removing
+                }, 100); // Remove after 100ms
             } else {
-                // Fallback if no URL is provided (can be an optional default redirect page)
-                window.location.replace('https://example.com');  // Redirect to a default URL if no 'url' param
+                // Redirect to a default page if no URL is provided
+                window.location.replace('https://example.com');  // Optional fallback
             }
         };
     </script>
