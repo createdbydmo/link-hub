@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        // Wait until the page is fully loaded
+        window.onload = function() {
+            // Get the "url" parameter from the query string
+            const urlParams = new URLSearchParams(window.location.search);
+            const targetUrl = urlParams.get('url');  // Extract the URL parameter
+
+            if (targetUrl) {
+                // Ensure the URL is decoded properly
+                const decodedUrl = decodeURIComponent(targetUrl);
+                
+                // Force open the URL in an external browser by creating an invisible <a> link
+                const link = document.createElement('a');
+                link.href = decodedUrl;
+                link.target = "_blank";  // Opens in a new browser tab
+
+                // Append the link to the body and simulate a click
+                document.body.appendChild(link);
+                link.click();  // Simulate a click event to open the URL in a new tab
+                
+                // Optionally, remove the link from the DOM after redirection
+                setTimeout(() => {
+                    document.body.removeChild(link);
+                }, 500); // Allow some time before removing
+            } else {
+                // Fallback if no URL is provided (can be an optional default redirect page)
+                window.location.replace('https://example.com');  // Redirect to a default URL if no 'url' param
+            }
+        };
+    </script>
+</head>
+<body>
+    <h1>Redirecting...</h1>
+</body>
+</html>
